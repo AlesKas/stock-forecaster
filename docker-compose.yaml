@@ -9,9 +9,6 @@ services:
         env_file:
             - ./env/common.env
         image: "api:latest"
-        environment:
-            DEBUG: 'false'
-            #DEBUG: 'true'
         ports:
             - 80:80
         depends_on:
