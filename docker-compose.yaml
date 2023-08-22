@@ -1,14 +1,33 @@
 version: '3'
 
 services:
-  API:
-    container_name: API
-    build: 
-        context: ./
-        dockerfile: ./src/Dockerfile
-    image: "api:latest"
-    environment: 
-        DEBUG: 'false'
-        #DEBUG: 'true'
-    ports: 
-        - 80:80
+    API:
+        container_name: API
+        build:
+            context: ./
+            dockerfile: ./src/Dockerfile
+        env_file:
+            - ./env/common.env
+        image: "api:latest"
+        environment:
+            DEBUG: 'false'
+            #DEBUG: 'true'
+        ports:
+            - 80:80
+        depends_on:
+            - db
+
+    db:
+        image: influxdb:latest
+        container_name: influxdb
+        networks:
+            - default
+        security_opt:
+            - no-new-privileges:true
+        env_file:
+            - ./env/influx.env
+        restart: unless-stopped
+        ports:
+            - "8086:8086"
+        volumes:
+            - /home/svl/influxdb2:/var/lib/influxdb2:rw
