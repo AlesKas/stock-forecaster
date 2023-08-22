@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  API:
+    container_name: API
+    build: 
+        context: ./
+        dockerfile: ./src/Dockerfile
+    image: "api:latest"
+    environment: 
+        DEBUG: 'false'
+        #DEBUG: 'true'
+    ports: 
+        - 80:80
