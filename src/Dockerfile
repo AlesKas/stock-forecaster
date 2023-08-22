@@ -1,11 +1,11 @@
-FROM python:3.10
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.10
 
-WORKDIR /code
+WORKDIR /src
 
-COPY ./requirements.txt /code/requirements.txt
+ADD ./src/requirements.txt /src/
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /src/requirements.txt
 
-COPY ./ /
+COPY ./src /src/
 
 CMD ["uvicorn", "api_handler.main:app", "--host", "0.0.0.0", "--port", "80"]
