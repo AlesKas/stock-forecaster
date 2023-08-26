@@ -1,2 +1,3 @@
 fastapi==0.101.1
 influxdb-client
+requests
